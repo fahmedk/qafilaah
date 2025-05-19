@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-tli1y1^blpuhrho&$!qvn#rhyrqan-%%2%r)z*8kydxqz62-t!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+import os
+ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'localhost')]
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
@@ -54,6 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 
 ROOT_URLCONF = 'qafilah.urls'
@@ -123,6 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
